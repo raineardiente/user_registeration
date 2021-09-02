@@ -13,6 +13,11 @@ class App extends Component {
         }
     }
 
+    this.changeFullName = this.changeFullName.bind(this)
+    this.changeEmail = this.changeEmail.bind(this)
+    this.changeUserName = this.changeUserName.bind(this)
+    this.changePassword = this.changePassword.bind(this)
+
     changeFullName(event){
         this.setState({
             fullName:event.target.value
@@ -20,7 +25,7 @@ class App extends Component {
     }
     changeUsername(event){
         this.setState({
-            userame:event.target.value
+            username:event.target.value
         })
     }
     changeEmail(event){
@@ -32,6 +37,29 @@ class App extends Component {
         this.setState({
             password:event.target.value
         })
+    }
+
+    onsubmit(event){
+        event.preventDefault()
+
+        const registered ={
+            fullName: this.state.fullName,
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password
+        }
+
+        axios.post('http://localhost:4000/app/signup', registered)
+        .then(reponse => console.log(response.data))
+        
+        this.setState({
+            fullName:'',
+            username:'',
+            email:'',
+            password:''
+            
+        })
+
     }
 
     render() {
